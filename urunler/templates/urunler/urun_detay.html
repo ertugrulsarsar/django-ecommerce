@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            {% if urun.resim %}
+            <img src="{{ urun.resim.url }}" class="img-fluid" alt="{{ urun.ad }}">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2>{{ urun.ad }}</h2>
+            <p class="lead">{{ urun.aciklama }}</p>
+            <p class="h3 text-primary">{{ urun.fiyat }} TL</p>
+            <div class="mt-4">
+                <button class="btn btn-primary btn-lg">Sepete Ekle</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

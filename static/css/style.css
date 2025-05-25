@@ -1,0 +1,189 @@
+/* Genel Stiller */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Navbar Stilleri */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Ürün Kartı Stilleri */
+.product-card {
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Form Stilleri */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Alert Stilleri */
+.alert {
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Footer Stilleri */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .product-image {
+        height: 150px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* Admin Panel Stilleri */
+#header {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.module h2, .module caption {
+    background: #34495e;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.bg-success {
+    background-color: #2ecc71 !important;
+}
+
+.bg-danger {
+    background-color: #e74c3c !important;
+}
+
+.bg-warning {
+    background-color: #f1c40f !important;
+}
+
+.bg-info {
+    background-color: #3498db !important;
+}
+
+/* Tablo Stilleri */
+#changelist table thead th {
+    background: #34495e;
+    color: #fff;
+}
+
+#changelist table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Form Stilleri */
+.form-row {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-row:hover {
+    background-color: #f8f9fa;
+}
+
+/* Buton Stilleri */
+.button, input[type=submit], input[type=button], .submit-row input {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: #2980b9;
+}
+
+/* Collapse Stilleri */
+.collapse {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.collapse h2 {
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Ürün Görseli Stilleri */
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Filtre Stilleri */
+#changelist-filter h2 {
+    background: #34495e;
+    color: #fff;
+}
+
+#changelist-filter li.selected a {
+    color: #3498db;
+}
+
+/* Arama Kutusu Stilleri */
+#searchbar {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Pagination Stilleri */
+.paginator {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.paginator a {
+    color: #3498db;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.paginator a:hover {
+    background: #3498db;
+    color: #fff;
+} 
