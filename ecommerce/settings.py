@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "urunler",
-    "accounts",
+    "apps.accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [
@@ -67,6 +67,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.kategoriler_context",
             ],
         },
     },
@@ -83,7 +84,7 @@ DATABASES = {
 }
 
 # Özel User modeli
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'apps.accounts.User'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

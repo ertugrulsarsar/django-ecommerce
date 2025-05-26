@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -51,7 +54,7 @@ class Kategori(models.Model):
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
     aciklama = models.TextField(max_length=500)
-    ust_kategori = models.ForeignKey('urunler.Kategori', on_delete=models.CASCADE, null=True, blank=True)
+    ust_kategori = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Kategori'
@@ -193,3 +196,20 @@ class Degerlendirme(models.Model):
         verbose_name = 'Değerlendirme'
         verbose_name_plural = 'Değerlendirmeler'
         indexes = [models.Index(fields=['urun', 'kullanici_id'])]
+
+class Review(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
+    product = models.ForeignKey('Urun', on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveSmallIntegerField()
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.ad} - {self.rating}"
+
+@receiver(post_save, sender=SiparisUrunu)
+def update_stock_on_order(sender, instance, created, **kwargs):
+    if created:
+        product = instance.urun
+        product.stok -= instance.adet
+        product.save()

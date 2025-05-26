@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Kategoriler Sidebar -->
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Kategoriler</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'urunler:urun_listele' %}" class="list-group-item list-group-item-action {% if not kategori %}active{% endif %}">Tüm Ürünler</a>
+                    {% for kategori in kategoriler %}
+                    <a href="{% url 'urunler:kategori_urunleri' kategori.slug %}" class="list-group-item list-group-item-action {% if kategori and kategori.slug == kategori.slug %}active{% endif %}">
+                        {{ kategori.ad }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Fiyat Aralığı Filtresi -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Fiyat Aralığı</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get">
+                        <div class="input-group mb-2">
+                            <input type="number" class="form-control" name="min_fiyat" placeholder="Min" value="{{ request.GET.min_fiyat }}">
+                            <input type="number" class="form-control" name="max_fiyat" placeholder="Max" value="{{ request.GET.max_fiyat }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Filtrele</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Arama -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Arama</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get">
+                        <input type="text" class="form-control mb-2" name="q" placeholder="Ürün ara..." value="{{ request.GET.q }}">
+                        <button type="submit" class="btn btn-primary w-100">Ara</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Ürünler -->
+        <div class="col-md-9">
+            <div class="row">
+                {% for urun in urunler %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if urun.resim %}
+                        <img src="{{ urun.resim.url }}" class="card-img-top" alt="{{ urun.ad }}" style="height: 200px; object-fit: cover;">
+                        {% elif urun.placeholder_resim %}
+                        <img src="{{ urun.placeholder_resim }}" class="card-img-top" alt="{{ urun.ad }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <span class="badge bg-primary">{{ urun.kategori.ad }}</span>
+                            <h5 class="card-title">{{ urun.ad }}</h5>
+                            <p class="card-text">{{ urun.aciklama|truncatewords:15 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fw-bold">{{ urun.fiyat }} TL</span>
+                                </div>
+                                <a href="{% url 'urunler:urun_detay' urun.slug %}" class="btn btn-primary btn-sm">Detaylar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">Henüz ürün bulunmuyor.</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

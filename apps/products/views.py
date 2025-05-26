@@ -19,38 +19,11 @@ def urun_detay(request, slug):
     return render(request, 'urunler/urun_detay.html', {'urun': urun})
 
 def urun_listele(request):
-    urunler = Urun.objects.all()
+    urunler = Urun.objects.filter(aktif=True)
     kategoriler = Kategori.objects.filter(aktif=True)
-    kategori = None
-    q = request.GET.get('q')
-    min_fiyat = request.GET.get('min_fiyat')
-    max_fiyat = request.GET.get('max_fiyat')
-    kategori_slug = request.GET.get('kategori')
-
-    if kategori_slug:
-        kategori = Kategori.objects.filter(slug=kategori_slug, aktif=True).first()
-        if kategori:
-            urunler = urunler.filter(kategori=kategori)
-    if q:
-        urunler = urunler.filter(ad__icontains=q)
-    if min_fiyat:
-        urunler = urunler.filter(fiyat__gte=min_fiyat)
-    if max_fiyat:
-        urunler = urunler.filter(fiyat__lte=max_fiyat)
-
-    # Her ürün için resim yoksa placeholder ekle
-    urunler_list = []
-    for urun in urunler:
-        if not urun.resim:
-            urun.placeholder_resim = 'https://via.placeholder.com/400x300?text=Ürün+Görseli'
-        else:
-            urun.placeholder_resim = None
-        urunler_list.append(urun)
-
     return render(request, 'urunler/urun_listesi.html', {
-        'urunler': urunler_list,
+        'urunler': urunler,
         'kategoriler': kategoriler,
-        'kategori': kategori,
     })
 
 def kategori_urunleri(request, slug):

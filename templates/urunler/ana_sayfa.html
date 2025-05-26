@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Ana Sayfa - E-Ticaret{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="jumbotron bg-primary text-white p-5 rounded">
+                <h1 class="display-4">Hoşgeldiniz!</h1>
+                <p class="lead">En yeni ve popüler ürünler burada. Hemen alışverişe başlayın!</p>
+                <a class="btn btn-light btn-lg" href="{% url 'urunler:urun_listele' %}">Tüm Ürünler</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="mb-3">Kategoriler</h2>
+            <div class="d-flex flex-wrap gap-3">
+                {% for kategori in kategoriler %}
+                <a href="{% url 'urunler:kategori_urunleri' kategori.slug %}" class="btn btn-outline-primary">
+                    {{ kategori.ad }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-3">Son Eklenen Ürünler</h2>
+        </div>
+        {% for urun in son_urunler %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                {% if urun.resim %}
+                <img src="{{ urun.resim.url }}" class="card-img-top" alt="{{ urun.ad }}" style="height: 180px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <span class="badge bg-primary">{{ urun.kategori.ad }}</span>
+                    <h5 class="card-title">{{ urun.ad }}</h5>
+                    <p class="card-text">{{ urun.aciklama|truncatewords:10 }}</p>
+                    <div class="mb-2">
+                        {% if urun.indirimli_fiyat %}
+                        <span class="text-decoration-line-through text-muted">{{ urun.fiyat }} TL</span>
+                        <span class="text-danger fw-bold">{{ urun.indirimli_fiyat }} TL</span>
+                        {% else %}
+                        <span class="fw-bold">{{ urun.fiyat }} TL</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'urunler:urun_detay' urun.slug %}" class="btn btn-primary btn-sm">Detaylar</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">Henüz ürün eklenmemiş.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

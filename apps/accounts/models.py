@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -30,6 +31,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(null=True, blank=True)
 
+    # PermissionsMixin'den gelen alanlar için related_name ekliyorum
+    groups = models.ManyToManyField(
+        'auth.Group',
+        verbose_name='groups',
+        blank=True,
+        related_name='custom_user_set',
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        verbose_name='user permissions',
+        blank=True,
+        related_name='custom_user_set',
+        help_text='Specific permissions for this user.',
+    )
+
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
@@ -48,3 +65,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='addresses')
+    title = models.CharField(max_length=100)
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20)
+    country = models.CharField(max_length=100, default='Türkiye')
+    is_default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.title} - {self.user.username}"

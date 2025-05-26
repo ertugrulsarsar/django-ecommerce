@@ -1,0 +1,50 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('E-Ticaret Yönetim Paneli') }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    :root {
+        --primary: #2c3e50;
+        --secondary: #34495e;
+        --accent: #3498db;
+        --primary-fg: #fff;
+    }
+
+    #header {
+        background: var(--primary);
+        color: var(--primary-fg);
+    }
+
+    #branding h1 {
+        font-weight: 600;
+    }
+
+    .module h2, .module caption {
+        background: var(--secondary);
+    }
+
+    div.breadcrumbs {
+        background: var(--secondary);
+    }
+
+    .button, input[type=submit], input[type=button], .submit-row input {
+        background: var(--accent);
+    }
+
+    .button:hover, input[type=submit]:hover, input[type=button]:hover {
+        background: var(--secondary);
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        E-Ticaret Yönetim Paneli
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %} 

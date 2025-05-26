@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ urun.ad }} - E-Ticaret{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'urunler:ana_sayfa' %}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'urunler:kategori_urunleri' urun.kategori.slug %}">{{ urun.kategori.ad }}</a></li>
+            <li class="breadcrumb-item active">{{ urun.ad }}</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                {% if urun.resim %}
+                <img src="{{ urun.resim.url }}" class="card-img-top" alt="{{ urun.ad }}" style="max-height: 500px; object-fit: contain;">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1 class="mb-3">{{ urun.ad }}</h1>
+            <p class="text-muted mb-4">{{ urun.kategori.ad }}</p>
+            <div class="mb-4">
+                {% if urun.indirimli_fiyat %}
+                <span class="text-decoration-line-through text-muted h4">{{ urun.fiyat }} TL</span>
+                <span class="text-danger h2 fw-bold">{{ urun.indirimli_fiyat }} TL</span>
+                {% else %}
+                <span class="h2 fw-bold">{{ urun.fiyat }} TL</span>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <h5>Ürün Açıklaması</h5>
+                <p>{{ urun.aciklama }}</p>
+            </div>
+            <div class="mb-4">
+                <h5>Ürün Özellikleri</h5>
+                <ul class="list-unstyled">
+                    {% for ozellik in urun.ozellikler.all %}
+                    <li class="mb-2">
+                        <strong>{{ ozellik.anahtar }}:</strong> {{ ozellik.deger }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mb-4">
+                <h5>Stok Durumu</h5>
+                {% if urun.stok > 0 %}
+                <span class="badge bg-success">Stokta var</span>
+                {% else %}
+                <span class="badge bg-danger">Stokta yok</span>
+                {% endif %}
+            </div>
+            <button class="btn btn-primary btn-lg">Sepete Ekle</button>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>Değerlendirmeler</h3>
+            <div class="card">
+                <div class="card-body">
+                    {% for degerlendirme in urun.degerlendirmeler.all %}
+                    <div class="mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="mb-1">Kullanıcı {{ degerlendirme.kullanici_id }}</h5>
+                                <div class="text-warning mb-2">
+                                    {% for i in "12345" %}
+                                    {% if forloop.counter <= degerlendirme.puan %}
+                                    <i class="fas fa-star"></i>
+                                    {% else %}
+                                    <i class="far fa-star"></i>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <small class="text-muted">{{ degerlendirme.olusturma_tarihi|date:"d.m.Y" }}</small>
+                        </div>
+                        <p class="mb-0">{{ degerlendirme.yorum }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">Henüz değerlendirme yapılmamış.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

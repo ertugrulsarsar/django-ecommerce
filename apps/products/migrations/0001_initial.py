@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "Adresler",
                 "indexes": [
                     models.Index(
-                        fields=["kullanici_id"], name="urunler_adr_kullani_baaa18_idx"
+                        fields=["kullanici_id"], name="products_ad_kullani_ecf23a_idx"
                     )
                 ],
             },
@@ -99,7 +99,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="urunler.kategori",
+                        to="products.kategori",
                     ),
                 ),
             ],
@@ -138,7 +138,7 @@ class Migration(migrations.Migration):
                 "indexes": [
                     models.Index(
                         fields=["email", "username"],
-                        name="urunler_kul_email_1ca286_idx",
+                        name="products_ku_email_13c765_idx",
                     )
                 ],
             },
@@ -159,7 +159,7 @@ class Migration(migrations.Migration):
                 (
                     "urunler",
                     models.ManyToManyField(
-                        related_name="sepetler", to="urunler.sepeturunu"
+                        related_name="sepetler", to="products.sepeturunu"
                     ),
                 ),
             ],
@@ -206,7 +206,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="fatura_siparisler",
-                        to="urunler.adres",
+                        to="products.adres",
                     ),
                 ),
                 (
@@ -214,13 +214,13 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="kargo_siparisler",
-                        to="urunler.adres",
+                        to="products.adres",
                     ),
                 ),
                 (
                     "urunler",
                     models.ManyToManyField(
-                        related_name="siparisler", to="urunler.siparisurunu"
+                        related_name="siparisler", to="products.siparisurunu"
                     ),
                 ),
             ],
@@ -264,7 +264,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="urunler",
-                        to="urunler.kategori",
+                        to="products.kategori",
                     ),
                 ),
             ],
@@ -280,7 +280,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="siparis_urunler",
-                to="urunler.urun",
+                to="products.urun",
             ),
         ),
         migrations.AddField(
@@ -289,7 +289,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="sepet_urunler",
-                to="urunler.urun",
+                to="products.urun",
             ),
         ),
         migrations.CreateModel(
@@ -312,7 +312,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="degerlendirmeler",
-                        to="urunler.urun",
+                        to="products.urun",
                     ),
                 ),
             ],
@@ -340,7 +340,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="ozellikler",
-                        to="urunler.urun",
+                        to="products.urun",
                     ),
                 ),
             ],
@@ -390,7 +390,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="odemeler",
-                        to="urunler.siparis",
+                        to="products.siparis",
                     ),
                 ),
             ],
@@ -400,7 +400,7 @@ class Migration(migrations.Migration):
                 "indexes": [
                     models.Index(
                         fields=["siparis", "islem_no", "durum"],
-                        name="urunler_ode_siparis_cd1af9_idx",
+                        name="products_od_siparis_946bf5_idx",
                     )
                 ],
             },
@@ -414,13 +414,13 @@ class Migration(migrations.Migration):
                     "odeme_durumu",
                     "kargo_durumu",
                 ],
-                name="urunler_sip_kullani_7e39d9_idx",
+                name="products_si_kullani_48aaf7_idx",
             ),
         ),
         migrations.AddIndex(
             model_name="degerlendirme",
             index=models.Index(
-                fields=["urun", "kullanici_id"], name="urunler_deg_urun_id_b184e9_idx"
+                fields=["urun", "kullanici_id"], name="products_de_urun_id_7b0417_idx"
             ),
         ),
     ]

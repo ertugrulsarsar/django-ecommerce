@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from .models import User
 
 @admin.register(User)
@@ -14,9 +15,11 @@ class CustomUserAdmin(UserAdmin):
     
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Kişisel Bilgiler', {'fields': ('first_name', 'last_name', 'email')}),
-        ('İzinler', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Önemli Tarihler', {'fields': ('last_login', 'date_joined')}),
+        (_('Kişisel Bilgiler'), {'fields': ('first_name', 'last_name', 'email')}),
+        (_('İzinler'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+        (_('Önemli Tarihler'), {'fields': ('last_login', 'date_joined')}),
     )
     
     add_fieldsets = (

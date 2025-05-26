@@ -4,24 +4,24 @@
 - [x] Django projesi oluşturma
 - [x] MongoDB entegrasyonu
 - [x] Temel modellerin oluşturulması
-- [ ] Admin paneli yapılandırması
-- [ ] Proje yapısının düzenlenmesi (apps, utils, core vb.)
-- [ ] Gerekli paketlerin requirements.txt'ye eklenmesi
-- [ ] .env dosyası oluşturma ve hassas bilgileri taşıma
-- [ ] Git repository oluşturma ve .gitignore ayarları
+- [x] Admin paneli yapılandırması
+- [x] Proje yapısının düzenlenmesi (apps, utils, core vb.)
+- [x] Gerekli paketlerin requirements.txt'ye eklenmesi
+- [x] .env dosyası oluşturma ve hassas bilgileri taşıma
+- [x] Git repository oluşturma ve .gitignore ayarları
 
 ## 2. Veritabanı ve Modeller
-- [ ] Kullanıcı modeli
+- [x] Kullanıcı modeli
 - [x] Kategori modeli
 - [x] Ürün modeli
-- [ ] Sepet modeli
-- [ ] Sipariş modeli
-- [ ] Adres modeli
-- [ ] Ödeme modeli
-- [ ] Değerlendirme modeli
-- [ ] Model validasyonları
-- [ ] Model metodları (örn: toplam fiyat hesaplama)
-- [ ] Model sinyalleri (örn: stok güncelleme)
+- [x] Sepet modeli
+- [x] Sipariş modeli
+- [x] Adres modeli
+- [x] Ödeme modeli
+- [x] Değerlendirme modeli
+- [x] Model validasyonları
+- [x] Model metodları (örn: toplam fiyat hesaplama)
+- [x] Model sinyalleri (örn: stok güncelleme)
 
 ## 3. Kullanıcı Yönetimi
 - [ ] Kayıt sistemi
